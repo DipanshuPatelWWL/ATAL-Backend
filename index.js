@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
   });
 });
 app.use(express.urlencoded({ extended: true }))
-app.use('/category/', router);
+app.use('/category', router);
 app.use('/api', faq);
 
 app.listen(4000, () => {
