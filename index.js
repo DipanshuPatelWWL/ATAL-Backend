@@ -1,13 +1,14 @@
-const express =require('express');
-const mongoose =require('mongoose');
+const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./routes/categoryRoutes');
-const faq=require('./routes/faqRoutes')
+const faq = require('./routes/faqRoutes')
 const app = express();
 require("dotenv").config();
 const database = require("./config/config")
 
-const allowedOrigins = ['http://localhost:5173','http://localhost:5174'];
+// const allowedOrigins = ['http://localhost:5173','http://localhost:5174'];
+const allowedOrigins = ['atal-homepage.vercel.app', 'atal-dashboard-fontend.vercel.app'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -33,10 +34,10 @@ app.get("/", (req, res) => {
     message: 'Your server is up and running....'
   });
 });
-app.use(express.urlencoded({extended : true}))
-app.use('/category/',router);
-app.use('/api',faq);
+app.use(express.urlencoded({ extended: true }))
+app.use('/category/', router);
+app.use('/api', faq);
 
-app.listen(4000, ()=>{
-    console.log("server start on Port : 4000");
+app.listen(4000, () => {
+  console.log("server start on Port : 4000");
 })
