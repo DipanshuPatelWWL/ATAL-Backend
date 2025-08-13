@@ -12,11 +12,7 @@ const {
   updateProduct,
   fogetAdminpass,
   updatesdminpassword,
-  login,
-  coffeedata,
-  getcoffee,
-  deleteCoffee,
-  updateCoffee,
+  login
 } = require("../controllers/categoryControllar");
 
 router.post("/addcategory/", catogorydata);
@@ -29,9 +25,5 @@ router.delete("/deleteproduct/:id", deleteProduct);
 router.put("/updateproduct/:id", upload.single("image"), updateProduct);
 router.post("/forgetpassword", fogetAdminpass);
 router.put("/passworupdate", updatesdminpassword);
-router.post("/coffeeadd", coffeedata);
-router.get("/getcoffee", getcoffee);
-router.delete("/deletecoffee/:id", deleteCoffee);
-router.put("/updatecoffee/:id", updateCoffee);
 router.post("/login", login);
 module.exports = router;

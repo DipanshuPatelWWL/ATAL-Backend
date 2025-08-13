@@ -1,8 +1,7 @@
 const {
   Newcategory,
   NewProduct,
-  Admin,
-  CoofeeIngrient,
+  Admin
 } = require("../model/categoryModel");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
@@ -57,160 +56,6 @@ const catogorydata = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       message: "Server Error",
-      success: false,
-      error: error.message,
-      status: 500,
-    });
-  }
-};
-
-const coffeedata = async (req, res) => {
-  try {
-    const { categoryname, ingredients } = req.body;
-
-    if (!categoryname || categoryname.length === 0) {
-      return res.status(400).json({
-        message: "Category is required",
-        success: false,
-        status: 400,
-      });
-    }
-
-    if (!ingredients) {
-      return res.status(400).json({
-        message: "Ingredients are required",
-        success: false,
-        status: 400,
-      });
-    }
-
-    let parsedIngredients;
-    try {
-      parsedIngredients = JSON.parse(ingredients);
-      if (!Array.isArray(parsedIngredients)) {
-        throw new Error("Ingredients must be a JSON array");
-      }
-    } catch (err) {
-      return res.status(400).json({
-        message: "Invalid ingredients format. Must be a JSON array string.",
-        success: false,
-        status: 400,
-      });
-    }
-    const result = new CoofeeIngrient({
-      categoryname,
-      ingredients: parsedIngredients,
-    });
-
-    const data = await result.save();
-
-    return res.status(200).json({
-      message: "Successfully added",
-      success: true,
-      data,
-      status: 200,
-    });
-  } catch (error) {
-    console.error("Server error:", error);
-    return res.status(500).json({
-      message: "Server Error",
-      success: false,
-      error: error.message,
-      status: 500,
-    });
-  }
-};
-const getcoffee = async (req, res) => {
-  try {
-    const data = await CoofeeIngrient.find();
-    if (data) {
-      return res.status(200).json({
-        message: "get sucessfully",
-        success: true,
-        data: data,
-        status: 200,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(400).json({
-      message: "No Data found In This Collection",
-      success: true,
-      error: error,
-      status: 200,
-    });
-  }
-};
-const deleteCoffee = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        message: "Invalid category ID",
-        success: false,
-        status: 400,
-      });
-    }
-    const data = await CoofeeIngrient.findByIdAndDelete(id);
-
-    if (!data) {
-      return res.status(404).json({
-        message: "Category not found",
-        success: false,
-        status: 404,
-      });
-    }
-
-    return res.status(200).json({
-      message: "Category deleted successfully",
-      success: true,
-      status: 200,
-    });
-  } catch (error) {
-    console.error("Error deleting category:", error);
-    return res.status(500).json({
-      message: "Error deleting category",
-      success: false,
-      error: error.message,
-      status: 500,
-    });
-  }
-};
-const updateCoffee = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { categoryname, ingredients } = req.body;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        message: "Invalid category ID",
-        success: false,
-        status: 400,
-      });
-    }
-    const data = await CoofeeIngrient.findByIdAndUpdate(
-      id,
-      { categoryname, ingredients },
-      { new: true }
-    );
-
-    if (!data) {
-      return res.status(404).json({
-        message: "Category not found",
-        success: false,
-        status: 404,
-      });
-    }
-
-    return res.status(200).json({
-      message: "Coffee updated successfully",
-      success: true,
-      data,
-      status: 200,
-    });
-  } catch (error) {
-    console.error("Error updating coffeee:", error);
-    return res.status(500).json({
-      message: "Error updating coffeee",
       success: false,
       error: error.message,
       status: 500,
@@ -604,9 +449,5 @@ module.exports = {
   updateProduct,
   fogetAdminpass,
   updatesdminpassword,
-  login,
-  coffeedata,
-  getcoffee,
-  deleteCoffee,
-  updateCoffee,
+  login
 };

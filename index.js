@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const router = require('./routes/categoryRoutes');
+const category = require('./routes/categoryRoutes');
 const faq = require('./routes/faqRoutes')
 const app = express();
 require("dotenv").config();
@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
   });
 });
 app.use(express.urlencoded({ extended: true }))
-app.use('/api', router);
+app.use('/api', category);
 app.use('/api', faq);
 
 app.listen(4000, () => {
